@@ -2,10 +2,13 @@
 #include <stdexcept>
 #include <string>
 
+#include <format>
+
 class InsufficientDiskSpaceException : public std::runtime_error 
 {
     public:
-    InsufficientDiskSpaceException(const std::string& msg) : std::runtime_error(msg) {}
+    //InsufficientDiskSpaceException(const std::string& msg) : std::runtime_error(msg) {}
+    InsufficientDiskSpaceException(const char* what_arg) : std::runtime_error(what_arg) {}
 };
 
 void checkDiskSpace(unsigned long availableSpaceMB) 
@@ -14,7 +17,11 @@ void checkDiskSpace(unsigned long availableSpaceMB)
     
     if (availableSpaceMB < requiredSpaceMB) 
     {
-        throw InsufficientDiskSpaceException("Insufficient disk space.");
+        //char* str="Not enough space";
+        std::string str = std::format("Not enough space: asked {:04} requied {}.", availableSpaceMB, requiredSpaceMB).c_str();
+        throw InsufficientDiskSpaceException(str.c_str());
+//        throw InsufficientDiskSpaceException(std::format("Not enough space, asked {} requied {}.", availableSpaceMB, requiredSpaceMB).c_str());
+        //throw InsufficientDiskSpaceException("Insufficient disk space.");
     }
 }
 

@@ -2,19 +2,22 @@
 #include <fstream>
 #include <string>
 
+#include <format>
+
 using namespace std;
 
-const string readConfigFile(const string& filename) 
+const string readConfigFile(const string &filename)
 {
     ifstream file(filename);
-    if (!file.good()) 
+    if (!file.good())
     {
-        throw runtime_error("Failed to open configuration file.");
+        throw runtime_error(
+            std::format("Failed to open configuration file: {}.", filename));
     }
 
     string line;
     string text;
-    while (getline(file, line)) 
+    while (getline(file, line))
     {
         text += line;
         text += '\n';
@@ -23,17 +26,17 @@ const string readConfigFile(const string& filename)
     return text;
 }
 
-int main() 
+int main()
 {
-    try 
+    try
     {
         cout << "Reading configuration:" << endl;
-        string text = readConfigFile("configuration.txt");
+        string text = readConfigFile("configu-ration.txt");
         cout << text;
-    } 
-    catch (const exception& e) 
+    }
+    catch (const exception &e)
     {
-        cerr << "Error: " << e.what() << endl;        
+        cerr << "Error: " << e.what() << endl;
         return -1;
     }
 

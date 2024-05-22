@@ -48,6 +48,7 @@ int main()
 {
     try
     {
+        accessAPI(ErrorType::Authentication);
         accessAPI(ErrorType::DataIntegrity);
     }
     catch (const AuthenticationError &e)
@@ -58,6 +59,10 @@ int main()
     {
         std::cerr << "NetworkError: " << e.what() << std::endl;
     }
+//    catch (const AuthenticationError &e)
+//    {
+//        std::cerr << "AuthenticationError: " << e.what() << std::endl;
+//    }
     catch (const DataIntegrityError &e)
     {
         std::cerr << "DataIntegrityError: " << e.what() << std::endl;

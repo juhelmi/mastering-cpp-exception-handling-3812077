@@ -4,6 +4,8 @@
 #include <memory>  // Don't forget to include this header for smart pointers
 #include <fstream> // For std::fstream
 
+#include <format>
+
 class DatabaseConnection
 {
 private:
@@ -22,6 +24,10 @@ public:
         {
             throw std::runtime_error("Failed to open log file");
         }
+        logFile << "Added text\n";
+        //logFile << std::format("Length {}\n", logFile.tellg());
+        int size = logFile.tellg();
+        logFile << std::format("Length {}\n", size);
 
         // Simulate another potential issue after opening the file
         throw std::runtime_error("Failed to connect to database");

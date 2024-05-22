@@ -33,6 +33,7 @@ int main()
 {
     try
     {
+        triggerException(ErrorType::Permission);
         triggerException(ErrorType::Disk);
     }    
     catch (const DiskAccessException &e)
